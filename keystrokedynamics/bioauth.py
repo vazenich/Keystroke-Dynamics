@@ -13,6 +13,7 @@ class Auth:
         V = 0
         print "For ", user, "  V = ", V, " data length: ", len(data)
         for item in data:
+            #key, value = self.temp.addModif(item)
             key, value = self.temp.add(item)
             if key is not None and value is not None:
                 #print key, value

@@ -1,4 +1,5 @@
-var url_k = 'http://162.243.145.18:80/createprofile'
+
+var url_k = 'http://127.0.0.1:2525/createprofile'
 var keylog = [];
 var timelog = [];
 var username;

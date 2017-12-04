@@ -1,6 +1,6 @@
 var keylog = [];
 var timelog = [];
-var url_k = 'http://localhost:5000'
+var url_k = 'http://10.14.10.95:2525'
 var username;
 
 function move(){

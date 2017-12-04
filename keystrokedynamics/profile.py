@@ -1,3 +1,4 @@
+import csv
 import json
 import sqlite3
 import digraph
@@ -11,20 +12,43 @@ class Etalon:
 
     def addToEtalon(self, data):
         newDigraph = digraph.Digraph()
+        #print self.keylog
         for item in data:
+
             #key, value = newDigraph.addModif(item)
             key, value = newDigraph.add(item)
+
             if key is not None and value is not None:
+
+
+                """with open('out1.csv', "w") as file:
+                 #columns = ["key", "time"]
+                 writer = csv.DictWriter( )
+                 #writer.writeheader()
+                 writer.writerows(item)
+
+                #print row
+                #print row1"""
+
+
+
                 if self.keylog.has_key(key):
+
                     self.keylog[key][2] = int(self.keylog.get(key)[2]) + 1
                     self.keylog[key][0] = float(self.keylog[key][0] + value) / float(self.keylog[key][2])
                     self.keylog[key][1] = float((value - self.keylog[key][0]) ** 2) / float(self.keylog[key][2] - 1)
+
+                    #print self.keylog
+                    #print self.keylog[key][1]
+
                 else:
                     self.keylog[key] = [value, "0", "1"]
+
     def getitems(self):
         return self.keylog.items()
     def getkeys(self):
         return self.keylog.keys()
+
     def getvalues(self):
         return self.keylog.values()
 
@@ -40,7 +64,7 @@ class Profile:
         self.profilelist[username] = Etalon()
         self.profilelist[username].addToEtalon(rawdata)
         return self.profilelist
-
+        print self.profilelist
     def printProfile(self):
         for item in self.profilelist.items():
             print item[0]
@@ -60,7 +84,7 @@ def is_table_exists(name):
         return False
 
 def push_to_sql(prof):
-    table  = "".join(prof.keys())
+    table = "".join(prof.keys())
     conn = sqlite3.connect('keystroke.sqlite')
     cur = conn.cursor()
 
@@ -68,12 +92,13 @@ def push_to_sql(prof):
         return False
 
     cur.execute('''
-    CREATE TABLE IF NOT EXISTS ''' + table +''' (digraph_id INTEGER, expected_value REAL, variance REAL, frequency INTEGER)''')
+    CREATE TABLE IF NOT EXISTS ''' + table + ''' 
+    (digraph_id INTEGER, expected_value REAL, variance REAL, frequency INTEGER, time REAL)''')
     keys = prof["".join(prof.keys())].getkeys()
     values = prof["".join(prof.keys())].getvalues()
     for i in xrange(len(keys)):
-        cur.execute('''INSERT INTO ''' + table +''' (digraph_id, expected_value, variance, frequency)
-        VALUES ( ?, ?, ?, ? )''', (keys[i], values[i][0], values[i][1], values[i][2]))
+        cur.execute('''INSERT INTO ''' + table + '''(digraph_id, expected_value, variance, frequency)
+        VALUES ( ?, ?, ?, ?)''', (keys[i], values[i][0], values[i][1], values[i][2]))
     conn.commit()
     cur.close()
     return True

@@ -2,12 +2,17 @@
 <html>
 <title>Keystroke Dynamics</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+<meta name="viewport" content="width=device-width, user-scalable=no">
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='addstyle.css') }}">
-
+<!--
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+--> 
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='cp_keyscapt.js') }}"></script>
+
 </head>
 
 <body style="background-color:rgb(200,200,200)">
@@ -35,7 +40,7 @@
     </div>
 
     <form onsubmit="cp_next(); return false;" class="w3-panel w3-center w3-light-grey w3-card-4" style="width: 80%;margin:auto;">
-      <h3> Step 1. Create unique username<h3>
+      <h3> Step 1. Create unique username</h3>
       <h4>Username:</h4>
       <h6><span id="name_status" ></span></h6>
       <input type="text" id="userID" onkeyup="checkname();"autofocus></input>
@@ -115,8 +120,19 @@
   </div>
 </div>
 
+<div class="display">
+    <div class="wrap" aria-live="polite" aria-atomic="true">
+      <p class="keycode-display"></p>
+      <p class="text-display">press any key to get the JavaScript event keycode</p>
+    </div>
+  </div>
+
+
 <footer class="w3-container w3-blue-grey w3-center">
   <p></p>
 </footer>
+
+
+
 </body>
 </html>
