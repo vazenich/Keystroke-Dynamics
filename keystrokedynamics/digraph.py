@@ -31,12 +31,9 @@ class Digraph:
                 key = act1[0] + act2[0]
                 print "digraphID = ", key, "time of digraph = ", time
 
-
-
                 row = []
                 row1 = []
                 row2 = []
-
                 row.append(key)
                 row1.append(time)
                 row2 = (row, row1)
@@ -51,8 +48,6 @@ class Digraph:
                     # for item in row2:
                       #csv_writer.writerows([row2])
                     # out.write(time)
-
-
                 return key, time
             else:
                 return None, None
